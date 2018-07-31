@@ -96,18 +96,29 @@ public handleDeleteClick = (event : any, id : number[]) => { // 다음 해야함
 }
 
 public handleAddClick = (event : any) => {
-    // let newdata : Array<{
-    //     id : number,
-    //     title : string,
-    //     description : string
-    // }> = this.state.data;
-
     this.setState({isOpend : true});
 }
 
 public handleClose = () => {
     this.setState({ isOpend : false });
   };
+
+public handleDialogAdd = (value : {title : string, description : string}) => {
+    const newdata : Array<{
+        id : number,
+        title : string,
+        description : string
+    }> = this.state.data;
+
+    newdata.push(createData(value.title, value.description));
+
+    this.setState({
+        isOpend : false, 
+        data : newdata
+    });
+
+    console.log();
+}
 
     public render() {
         return (
@@ -174,7 +185,7 @@ public handleClose = () => {
                         </Toolbar>
                     </Paper>
                 </Grid>
-                <AddModal  open={this.state.isOpend} close={this.handleClose}/>
+                <AddModal  open={this.state.isOpend} close={this.handleClose} clickedAdd={this.handleDialogAdd}/>
             </Grid>
         )
     }
