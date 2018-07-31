@@ -20,9 +20,7 @@ interface ITDTableProps extends WithStyles<typeof styles>{
 }
 
 interface ITDTableState{
-    selected : Array<{
-
-    }>,
+    selected : number[],
     data : Array<{
         id : number,
         title : string,
@@ -72,6 +70,36 @@ class TDTable extends React.Component<ITDTableProps, ITDTableState>{
 
         console.log(this.state.selected);
     };
+
+public handleDeleteClick = (event : any, id : number[]) => { // 다음 해야함
+    let newdata : Array<{
+        id : number,
+        title : string,
+        description : string
+    }> = [];
+
+    newdata = this.state.data.filter(((x, i, a) => {
+        for(let i = 0; i < id.length ; i++){
+            if(x.id === id[i])
+                return false;
+        }
+        return true;
+    }));
+
+    this.setState({
+        data : newdata
+    });
+}
+
+public handleAddClick = () => {
+    // let newdata : Array<{
+    //     id : number,
+    //     title : string,
+    //     description : string
+    // }> = this.state.data;
+
+    console.log()
+}
 
     public render() {
         return (
@@ -130,7 +158,7 @@ class TDTable extends React.Component<ITDTableProps, ITDTableState>{
                             </div>
                             <div className={this.props.classes.actions}>
                                 <Tooltip title="Delete">
-                                    <IconButton aria-label="Delete">
+                                    <IconButton aria-label="Delete" onClick={(event) => this.handleDeleteClick(event, this.state.selected)}>
                                     <DeleteIcon />
                                     </IconButton>
                                 </Tooltip>
