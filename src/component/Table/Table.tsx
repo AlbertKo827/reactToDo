@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import AddModal from '../addItemModal/modal'
+
 import { WithStyles } from '@material-ui/core/styles'
 
 import { styles } from './style'
@@ -26,7 +28,8 @@ interface ITDTableState{
         title : string,
         description : string
     }>,
-    numSelected : number
+    numSelected : number,
+    isOpend : boolean
 }
 
 class TDTable extends React.Component<ITDTableProps, ITDTableState>{
@@ -42,7 +45,8 @@ class TDTable extends React.Component<ITDTableProps, ITDTableState>{
                 createData('second', 'this is second item'),
                 createData('third', 'this is third item')
             ],
-            numSelected : -1
+            numSelected : -1,
+            isOpend : false
         }
     }
 
@@ -91,15 +95,19 @@ public handleDeleteClick = (event : any, id : number[]) => { // 다음 해야함
     });
 }
 
-public handleAddClick = () => {
+public handleAddClick = (event : any) => {
     // let newdata : Array<{
     //     id : number,
     //     title : string,
     //     description : string
     // }> = this.state.data;
 
-    console.log()
+    this.setState({isOpend : true});
 }
+
+public handleClose = () => {
+    this.setState({ isOpend : false });
+  };
 
     public render() {
         return (
@@ -152,7 +160,7 @@ public handleAddClick = () => {
                             <div className={this.props.classes.actions}>
                                 <Tooltip title="Add">
                                     <IconButton aria-label="Add">
-                                    <AddIcon />
+                                    <AddIcon onClick={(event) => this.handleAddClick(event)}/>
                                     </IconButton>
                                 </Tooltip>
                             </div>
@@ -166,6 +174,7 @@ public handleAddClick = () => {
                         </Toolbar>
                     </Paper>
                 </Grid>
+                <AddModal  open={this.state.isOpend} close={this.handleClose}/>
             </Grid>
         )
     }
