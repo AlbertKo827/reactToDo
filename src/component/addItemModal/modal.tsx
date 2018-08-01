@@ -35,9 +35,9 @@ class AddModal extends React.Component<IAMprops, IAMstate>{
             this.setState({description: event.target.value});
     }
 
-public ClickAddHandler = () => {
-    this.props.clickedAdd(this.state);
-}
+    public ClickAddHandler = () => {
+        this.props.clickedAdd(this.state);
+    }
 
     public render(){
         return(

@@ -71,57 +71,50 @@ class TDTable extends React.Component<ITDTableProps, ITDTableState>{
         }
     
         this.setState({ selected: newSelected });
-
-        console.log(this.state.selected);
     };
 
-public handleDeleteClick = (event : any, id : number[]) => { // 다음 해야함
-    let newdata : Array<{
-        id : number,
-        title : string,
-        description : string
-    }> = [];
+    public handleDeleteClick = (event : any, id : number[]) => { // 다음 해야함
+        let newdata : Array<{
+            id : number,
+            title : string,
+            description : string
+        }> = [];
 
-    newdata = this.state.data.filter(((x, i, a) => {
-        for(let i = 0; i < id.length ; i++){
-            if(x.id === id[i])
-                return false;
-        }
-        return true;
-    }));
+        newdata = this.state.data.filter(((x, i, a) => {
+            for(let i = 0; i < id.length ; i++){
+                if(x.id === id[i])
+                    return false;
+            }
+            return true;
+        }));
 
-    this.setState({
-        data : newdata
-    });
-}
+        this.setState({
+            data : newdata
+        });
+    }
 
-public handleAddClick = (event : any) => {
-    this.setState({isOpend : true});
-}
+    public handleAddClick = (event : any) => {
+        this.setState({isOpend : true});
+    }
 
-public handleClose = () => {
-    console.log('close');
-    this.setState({ isOpend : false });
-  };
+    public handleClose = () => {
+        this.setState({ isOpend : false });
+    };
 
-public handleDialogAdd = (value : {title : string, description : string}) => {
-console.log(value);
+    public handleDialogAdd = (value : {title : string, description : string}) => {
+        const newdata : Array<{
+            id : number,
+            title : string,
+            description : string
+        }> = this.state.data;
 
-    const newdata : Array<{
-        id : number,
-        title : string,
-        description : string
-    }> = this.state.data;
+        newdata.push(createData(value.title, value.description));
 
-    newdata.push(createData(value.title, value.description));
-
-    this.setState({
-        isOpend : false, 
-        data : newdata
-    });
-
-    console.log("title : " + value.title + "\ndescription : " + value.description);
-}
+        this.setState({
+            isOpend : false, 
+            data : newdata
+        });
+    }
 
     public render() {
         return (
