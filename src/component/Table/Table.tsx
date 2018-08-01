@@ -100,10 +100,13 @@ public handleAddClick = (event : any) => {
 }
 
 public handleClose = () => {
+    console.log('close');
     this.setState({ isOpend : false });
   };
 
 public handleDialogAdd = (value : {title : string, description : string}) => {
+console.log(value);
+
     const newdata : Array<{
         id : number,
         title : string,
@@ -117,7 +120,7 @@ public handleDialogAdd = (value : {title : string, description : string}) => {
         data : newdata
     });
 
-    console.log();
+    console.log("title : " + value.title + "\ndescription : " + value.description);
 }
 
     public render() {

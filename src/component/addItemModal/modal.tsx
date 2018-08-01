@@ -12,8 +12,8 @@ interface IAMprops extends WithStyles<typeof styles>{
 }
 
 interface IAMstate{
-    title : string | null,
-    description : string | null
+    title : string,
+    description : string
 }
 
 class AddModal extends React.Component<IAMprops, IAMstate>{
@@ -26,16 +26,18 @@ class AddModal extends React.Component<IAMprops, IAMstate>{
         }
     }
 
-    public changeValue = (event : React.ChangeEvent) => {
-        const objName = event.target.nodeName;
+    public changeValue = (event : React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+        const objName = event.target.name;
 
         if(objName === 'title')
-            this.setState({title: event.target.nodeValue});
+            this.setState({title: event.target.value});
         else if(objName === 'description')
-            this.setState({description: event.target.nodeValue});
-
-        console.log(this.state);
+            this.setState({description: event.target.value});
     }
+
+public ClickAddHandler = () => {
+    this.props.clickedAdd(this.state);
+}
 
     public render(){
         return(
@@ -72,7 +74,7 @@ class AddModal extends React.Component<IAMprops, IAMstate>{
                     <Button onClick={this.props.close} color="primary">
                     취소
                     </Button>
-                    <Button onClick={this.props.clickedAdd(this.state)} color="primary">
+                    <Button onClick={this.ClickAddHandler} color="primary">
                     추가
                     </Button>
                 </DialogActions>
